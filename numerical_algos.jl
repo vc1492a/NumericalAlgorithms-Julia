@@ -190,7 +190,7 @@ function two_pt_gauss(f, a, b, n)
     h = (b - a) / n
     #print h
     sum = 0
-    for i = 
+    for i = 1:n-1
         x0 = a + (i * h) #starting at left end point, h represents step size.
         #print x0
         x1 = x0 + (0.5 * h) * (1 - sqrt(1 / 3))
@@ -209,7 +209,7 @@ function three_pt_gauss(f, a, b, n)
     h = (b - a) / n
     #print h
     sum = 0
-    for i = 1:n
+    for i = 1:n-1
         x0 = a + (i * h) #starting at left end point, h represents step size.
         #print x0
         x1 = x0 + (0.5 * h) * (1 - sqrt(3 / 5))
@@ -237,3 +237,4 @@ three_pt_gauss(f,0.,1.,10) #result is 0.16666650000000005
 #You can see here that using Gaussian Quadrature feels like cheating, almost. With so little computation,
 #we can approximate the area under the curve (i.e. integrate) with a, compared to other methods, very high
 #amount of accuracy. Using n=10 and three_pt_gauss, we obtain the true result.
+
