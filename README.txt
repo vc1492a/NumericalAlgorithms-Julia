@@ -23,6 +23,7 @@ Other Topics:
 -Jacobian Matrix Evaluation in R2 and R3
 -Wronskian Matrix Evaluation in R2
 -Hilbert matrices
+-Calculation of Chebyshev nodes
 
 The topics listed below will be added as these algos are translated from Python.
 
@@ -32,6 +33,3 @@ Main Topics:
 -Linear Algebra (matrices, Gaussian elimination, Cramer's Rule)
 -First and Second derivatives
 -Romberg Integration Algorithm (appl. of Richardson extrapolation)
-
-Other Topics:
--Calculation of Chebyshev nodes
