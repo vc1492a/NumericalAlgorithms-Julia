@@ -98,7 +98,131 @@ trapezoid_uniform(f1, 0, pi, 100) #returns 1.9998355038874436.
 #exponentially increasing nature of the function. The higher the magnitude of the slope, the more error we can
 #expect from using the trapezoid method.
 
-#simpson's rule
+#Newton's Method
+function newton(f,f_prime,x,tolerance,precision,display,steps)
+    fx = f(x)
+    for i = 1:steps
+        if abs(f_prime(x)) < precision
+            print("small derivative")
+            break
+        end
+        d = fx / f_prime(x)
+        x = x - d
+        fx = f(x)
+        if display == 1
+                print([i, x, fx])
+        end
+        if abs(d) < tolerance
+            print("convergence")
+            break
+        end
+    end
+end
+
+function newtonaccel(f,f_prime,x,tolerance,precision,display,steps)
+    fx = f(x)
+    for i = 1:steps
+        if abs(f_prime(x)) < precision
+            print("small derivative")
+            break
+        end
+        d = fx / f_prime(x)
+        x = x - d
+        fx = f(x)
+        if display == 1
+                print([i, x, fx])
+        end
+        if abs(d) < tolerance
+            print("convergence")
+            break
+        end
+    end
+end
+
+function newtonmod(f,f_prime,x,tolerance,precision,display,steps)
+    fx = f(x)
+    for i = 1:steps
+        if abs(f_prime(x)) < precision
+            print("small derivative")
+            break
+        end
+        d = fx / f_prime(x)
+        x = x - d
+        if abs(f(x - d)) >= abs(f(x))
+            d = 0.5 * d
+        else
+            d = d
+        end
+        fx = f(x)
+        if display == 1
+                print([i, x, fx])
+        end
+        if abs(d) < tolerance
+            print("convergence")
+            break
+        end
+    end
+end
+
+function testfn(x)
+    fn = sin(x)
+    return fn
+end
+
+function testfnprime(x)
+    fn = cos(x)
+    return fn
+end
+
+newton(testfn, testfnprime, 1.2, 0.00000001, 0.00000001, 1, 25)
+newtonaccel(testfn, testfnprime, 1.2, 0.00000001, 0.00000001, 1, 25)
+newtonmod(testfn, testfnprime, 1.2, 0.00000001, 0.00000001, 1, 25)
+
+#secant method
+function secant(f, a, b, precision, steps)
+    fa = f(a)
+    fb = f(b)
+    if abs(fa) > abs(fb)
+        temp = a
+        a = b
+        b = temp
+        temp = fa
+        fa = fb
+        fb = temp
+    end
+    print([0,a,fa])
+    print([1,b,fb])
+    for n = 2:steps
+        if abs(fa) > abs(fb)
+            temp = a
+            a = b
+            b = temp
+            temp = fa
+            fa = fb
+            fb = temp
+        end
+        d = (b - a) / (fb - fa)
+        b = a
+        fb = fa
+        d = d * fa
+        if abs(d) < precision
+            print("Convergence")
+            print([n, a, fa])
+        end
+        a = a - d
+        fa = f(a)
+    end
+end
+
+function secantfn(x)
+    fn = (e^x)-3*(x^2)
+    return fn
+end
+
+secant(secantfn, -0.5, 2. ,1. ^ -10, 25)
+#found root to be -0.45896257524. There are other roots at 0.91 and 3.733
+
+#simpson's Method
 function simpson(f, a, b, level, level_max, precision)
     level += 1
     h = b - a
