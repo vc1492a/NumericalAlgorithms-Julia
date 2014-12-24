@@ -321,6 +321,25 @@ nc_five_point(f, -1, 1, 10) #returns 2.581761250230586
 #Theoretically, adding additional points should improve the precision of the result, but this is impractical
 #given other methods of integration, such as Gaussian quadrature or Richardson extrapolation. 
 
+#Chebyshev Nodes
+function chebyshevnodes(func,a,b,n) #number of nodes defined by user as n, a=left most point and b=right most point.
+    x = Float64[] #empty matrix to store values.
+    y = Float64[]
+    for i = 1 #really only need to check this once.
+        if 0<=i<=n #diagnostic to make sure we are operating within the bounds of the function. Not really needed.
+            print("i is less than or equal to n")
+        else
+            print("i is NOT less than or equal to n")
+            break
+        end
+    end
+    for i = 1:n+1
+        push!(x, cos((((2.0*float(i)+1)/(2.0*float(n)+2))*pi))) #formula given in book.
+        push!(y, func(x[i]))
+    end
+    return [x,y] #returns calculated chebyshev nodes to matrix for use.
+end
+
 #Gaussian Quadrature
 #Two point Gaussian Quadrature
 function two_pt_gauss(f, a, b, n)
