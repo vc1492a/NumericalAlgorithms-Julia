@@ -10,6 +10,7 @@ Main Topics:
 -Trapezoid Method
 -Newton's Method
 -Secant Method
+-Linear Algebra (incomplete)
 -Simpson's Method
 -Gaussian Quadrature (2 and 3 point integration)
 -Runge-Kutta Algorithms (orders 2, 3 and 4)
@@ -30,6 +31,6 @@ The topics listed below will be added as these algos are translated from Python.
 Main Topics:
 -Bisection Method
 -Polynomial Interpolation
--Linear Algebra (matrices, Gaussian elimination, Cramer's Rule)
+-Linear Algebra (matrices, Gaussian elimination)
 -First and Second derivatives
 -Romberg Integration Algorithm (appl. of Richardson extrapolation)
