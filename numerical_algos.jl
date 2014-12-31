@@ -222,6 +222,41 @@ end
 secant(secantfn, -0.5, 2. ,1. ^ -10, 25)
 #found root to be -0.45896257524. There are other roots at 0.91 and 3.733
 
+#Cramer's Rule
+#We have the system Ax=b, where A is an nxn matrix and b is an 1xn matrix. There are several ways to solve the system,
+#but the algorithm below evaluates x1, x2, ..., xn using Cramer's Rule.
+
+function cramers_rule_R2(a1, a2, a3, a4, b1, b2)
+    A = [a1 a2;a3 a4]
+    if det(A) == 0
+        print("Cramer's rule does not apply.")
+    else
+        A1 = [b1 a2;b2 a4]  #replace the first column with the matrix b.
+        A2 = [a1 b1;a3 b2]  #replace the second column with the matrix b.
+        x1 = det(A1) / det(A)
+        x2 = det(A2) / det(A)
+    end
+    return [x1;x2]
+end
+
+function cramers_rule_R3(a1, a2, a3, a4, a5, a6, a7, a8, a9, b1, b2, b3)
+    A = [a1 a2 a3;a4 a5 a6;a7 a8 a9]
+    if det(A) == 0
+        print("Cramer's rule does not apply.")
+    else
+        A1 = [b1 a2 a3;b2 a5 a6;b3 a8 a9]  #replace the first column with the matrix b.
+        A2 = [a1 b1 a3;a4 b2 a6;a7 b3 a9]  #replace the second column with the matrix b.
+        A3 = [a1 a2 b1;a4 a5 b2;a7 a8 b3]  #replace the third column with the matrix b.
+        x1 = det(A1) / det(A)
+        x2 = det(A2) / det(A)
+        x3 = det(A3) / det(A)
+    end
+    return [x1;x2;x3]
+end
+
+cramers_rule_R2(7., -2., 3., 1., 3., 5.)
+cramers_rule_R3(1., 0., 2., -3., 4., 6., -1., -2., 3., 6., 30., 8.)
+
 #simpson's Method
 function simpson(f, a, b, level, level_max, precision)
     level += 1
