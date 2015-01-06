@@ -289,6 +289,10 @@ end
 
 simpson(simptest, -2, 2, 0.000000000000001, 1, 10) #returns 5.333333333333.
 
+#Open formulas are slightly better when only two or three points are used. When using more than three points,
+#closed formulas are far more accurate than the open formulas. Additionally, a high-order formula may produce larger
+#error than a low-order one. As a general rule, formulas employing more than eight points are almost never used.
+
 #open Newton-Cotes rules
 function nc_midpoint(f, a, b, n)
     h = 0.5 * (b - a) #midpoint
@@ -355,6 +359,36 @@ nc_five_point(f, -1, 1, 10) #returns 2.581761250230586
 #the true result. This is due to the nature of the function, which as vertical asymptotes at x=-1 and x=1.
 #Theoretically, adding additional points should improve the precision of the result, but this is impractical
 #given other methods of integration, such as Gaussian quadrature or Richardson extrapolation. 
+
+#Node Transformations
+#Any arbitrary finite interval can be transformed to the interval [-1,1] using the first function provided below.
+
+#transforming points from [a,b] to [-1,1]
+function transform_1(array,a,b)
+    x = Float64[] #empty matrix to store values
+    for i = 1:length(array)
+        push!(x, (((2. * array[i]) - b - a) / (b - a)))
+    end
+    return x
+end
+
+#This next function is simply the inverse of the first transform function, which takes nodes in an interval [a.b] and
+#transforms them to any arbitrary finite interval [a,b].
+
+#transforming points from [-1,1] to [a,b]
+function transform_2(array,a,b)
+    x = Float64[] #empty matrix to store values
+    for i =  1:length(array)
+        push!(x, (((array[i] * (b - a)) + (b + a)) / 2.))
+    end
+    return x
+end
+
+z = [-4. -3. -2. -1. 0. 1. 2. 3. 4.]
+z2 = transform_1(z, -4, 4)
+z2
+
+transform_2(z2, -4, 4)
 
 #Chebyshev Nodes
 function chebyshevnodes(func,a,b,n) #number of nodes defined by user as n, a=left most point and b=right most point.
