@@ -12,6 +12,7 @@ Main Topics:
 -Secant Method
 -Linear Algebra (incomplete)
 -Simpson's Method
+-Romberg Integration Algorithm (appl. of Richardson extrapolation)
 -Node transformations
 -Gaussian Quadrature (2 and 3 point integration)
 -Runge-Kutta Algorithms (orders 2, 3 and 4)
@@ -34,4 +35,3 @@ Main Topics:
 -Polynomial Interpolation
 -Linear Algebra (matrices, Gaussian elimination)
 -First and Second derivatives
--Romberg Integration Algorithm (appl. of Richardson extrapolation)
