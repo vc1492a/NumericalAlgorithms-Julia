@@ -372,6 +372,37 @@ function transform_1(array,a,b)
     return x
 end
 
+#The romberg algorithm produces a triangular array of numbers, all of which are numerical estimates
+# of the definite integral of a function f(x) on the interval [a,b], where f(x) is continuous on [a,b].
+#the romberg algorithm itself is an application of Richardson extrapolation to each of the iterative trapezoid approximations.
+#This allows us to obtain a higher order extrapolation and thus a better result.
+
+function romberg(f,a,b,n) #r is an array, f is a function on [a,b], n = number of rows.
+    r = zeros(n,n) #declare an empty array of nxn dimension
+    h = (b - a)
+    r[1,1] = (h * 0.5) * (f(a) + f(b)) #this works correctly.
+    for i = 2:n
+        h = 0.5 * h #takes previously calculated h and halves it.
+        sum = 0
+        for k = 1:2:((2^(i-1))-1)
+            sum = sum + f(a + (k * h))
+            print(sum)
+        end
+        r[i,1] = 0.5 * r[i-1,1] + (sum * h)
+        for j = 2:i
+            r[i,j] = (r[i,j-1] + ((r[i,j-1] - r[i-1,j-1]) / ((4^(j-1)-1))))
+        end
+    end
+    return r
+end
+
+function f(x)
+    fn =  4/(1+(x^2))
+    return fn
+end
+
+romberg(f,0,1,6) #correct result is: 3.14159
+
 #This next function is simply the inverse of the first transform function, which takes nodes in an interval [a.b] and
 #transforms them to any arbitrary finite interval [a,b].
 
